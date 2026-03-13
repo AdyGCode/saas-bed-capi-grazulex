@@ -28,7 +28,7 @@ Once running, access the auto-generated documentation:
 
 ## Database Structure
 
-<iframe src="https://dbdiagram.io/d/contacts-api-69b37f7e84de9dc380117598" title="DB Structure ERD" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://dbdiagram.io/d/contacts-api-69b37f7e84de9dc380117598" title="DB Structure ERD"  frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ```dbml
 
