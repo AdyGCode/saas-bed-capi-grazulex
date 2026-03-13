@@ -1,0 +1,86 @@
+# This DBML file is correct as of 2026-03-13
+
+Table users {
+  id integer [primary key]
+  given_name varchar(64) [not null]
+  family_name varchar(64) [null]
+  nickname varchar(128) [null]
+  email varchar(340) [not null, unique]
+  password varchar [not null]
+  created_at timestamp
+  updated_at timestamp
+
+  indexes {
+    (email) [name: 'email_index']
+  }
+}
+
+Table contacts {
+  id integer [primary key]
+  given_name varchar(64) [not null]
+  family_name varchar(64) [null]
+  nickname varchar(128) [null]
+  user_id integer [not null, ref: > users.id]
+  created_at timestamp
+  updated_at timestamp
+
+  indexes {
+    (given_name, family_name) [name: 'fullname_gf_index']
+    (family_name, given_name) [name: 'fullname_fg_index']
+    (nickname) [name: 'nickname_index']
+  }
+}
+
+Table details {
+  id integer [primary key]
+  contact_id integer [not null, ref: > contacts.id]
+  details_type_id integer [not null, ref: > detail_types.id]
+  title varchar(32)
+  description text [note: 'detailed notes']
+  created_at timestamp
+  updated_at timestamp
+
+  indexes {
+    (contact_id) [name: 'contact_index']
+    (contact_id, details_type_id) [name: 'contact_details_type_index']
+  }
+}
+
+Table detail_types {
+  id integer [primary key]
+  title varchar(32) [not null, unique]
+  description varchar [null]
+  created_at timestamp
+  updated_at timestamp
+
+  indexes {
+    (title) [name: 'title_index']
+  }
+}
+
+Table groups{
+  id integer [primary key]
+  user_id integer [not null, ref: > users.id]
+  title varchar(32) [not null, unique]
+  description varchar [null]
+  created_at timestamp
+  updated_at timestamp
+
+  indexes {
+    (user_id) [name: 'user_index']
+    (title) [name: 'title_index']
+  }
+}
+
+Table contacts_groups{
+  id integer [primary key]
+  contact_id integer [ref: > contacts.id]
+  group_id integer [ref: > groups.id]
+  created_at timestamp
+  updated_at timestamp
+
+  indexes {
+    (group_id, contact_id) [name: 'group_contact_index']
+    (contact_id, group_id) [name: 'contact_group_index']
+  }
+}
