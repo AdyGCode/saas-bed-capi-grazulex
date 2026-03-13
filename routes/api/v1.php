@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\Api\V1\AuthController;
+use App\Http\Controllers\Api\V1\DetailTypeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,4 +41,10 @@ Route::middleware('throttle:6,1')->group(function (): void {
         ->name('password.email');
     Route::post('reset-password', [AuthController::class, 'resetPassword'])
         ->name('password.reset');
+});
+
+
+Route::middleware('throttle:200,1')->group(function (): void {
+    Route::apiResource('detail-types', DetailTypeController::class);
+
 });

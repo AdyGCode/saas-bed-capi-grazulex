@@ -32,3 +32,4 @@ CLAUDE.md
 
 # SQLite databases
 database/*.sqlite
+/pnpm-lock.yaml

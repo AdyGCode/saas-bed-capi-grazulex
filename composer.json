@@ -3,7 +3,13 @@
     "name": "grazulex/laravel-api-kit",
     "type": "project",
     "description": "Laravel REST API starter kit with Sanctum, Spatie packages, Scramble docs, and Pest testing.",
-    "keywords": ["laravel", "api", "rest", "starter-kit", "sanctum"],
+    "keywords": [
+        "laravel",
+        "api",
+        "rest",
+        "starter-kit",
+        "sanctum"
+    ],
     "license": "MIT",
     "require": {
         "php": "^8.3",
@@ -78,6 +84,37 @@
             "@php artisan key:generate --ansi",
             "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
             "@php artisan migrate --graceful --ansi"
+        ],
+        "setup": [
+            "composer install",
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+            "@php artisan key:generate",
+            "@php artisan migrate --force",
+            "pnpm install"
+        ],
+        "setup-npm": [
+            "composer install",
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+            "@php artisan key:generate",
+            "@php artisan migrate --force",
+            "npm install"
+        ],
+        "dev": [
+            "Composer\\Config::disableProcessTimeout",
+            "pnpm dlx  concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"npm run dev\"  --names=server,queue,vite"
+        ],
+        "dev-win": [
+            "Composer\\Config::disableProcessTimeout",
+            "pnpm dlx  concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"npm run dev\"  \"mailpit --smtp=0.0.0.0:2525\" --names=server,queue,vite,mailpit"
+        ],
+        "dev-win-npm": [
+            "Composer\\Config::disableProcessTimeout",
+            "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"npm run dev\"  \"mailpit --smtp=0.0.0.0:2525\" --names=server,queue,vite,mailpit"
+        ],
+        "dev-linux": [
+            "clear",
+            "Composer\\Config::disableProcessTimeout",
+            "pnpm dlx  concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74,#74fdc5\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"php artisan pail --timeout=0\" \"npm run dev\" \"mailpit --smtp=0.0.0.0:2525\" --names=server,queue,logs,vite,mailpit"
         ]
     },
     "extra": {
